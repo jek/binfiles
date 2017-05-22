@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd; 
-exec open ~/Applications/Emacs.app/
+cd
+exec open /Applications/Emacs.app
 

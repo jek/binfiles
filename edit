@@ -1,27 +1,26 @@
 #!/bin/bash
 
-#PATH=~/bin:/Applications/Aquamacs\ Emacs.app/Contents/MacOS/bin:$PATH
 PATH=~/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH
 
-#if [ ${DISPLAY:-unset} = unset ]
-#then
-#    exec vi ${1+"$@"}
-#fi
+if [[ $(uname -s) != "Darwin" ]]; then
+    if [ ${DISPLAY:-unset} = unset ]; then
+      exec vi ${1+"$@"}
+    fi
+fi
 
 case $(basename $0) in
     editwait)
         _editor='emacsclient'
         ;;
     editin)
-        #_editor='emacsclient -c'  # emacs 23
-        _editor='emacsclient'
+        _editor='emacsclient -c'
         ;;
     *)
-        #_editor='emacsclient -c -n'  # emacs 23
-        _editor='emacsclient -n'
+        _editor='emacsclient -c -n'
 esac
 
-ALTERNATE_EDITOR=edit-client.xemacs
+ALTERNATE_EDITOR=vi
+
 if emacsclient -e t >/dev/null 2>&1;
 then
     exec $_editor ${1+"$@"}
